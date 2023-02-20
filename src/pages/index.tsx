@@ -5,7 +5,7 @@ export default function Home() {
     <>
       <Head />
 
-      <h1>hi</h1>
+      <h1 className="text-7xl">hi</h1>
     </>
   );
 }
