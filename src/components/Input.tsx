@@ -44,7 +44,7 @@ const Input = forwardRef<HTMLDivElement, Props>(
         <input
           {...props}
           className={classNames(
-            'rounded-full text-zinc-700 border-4 text-lg px-4 py-2 focus:outline-none transition-colors duration-300 ease-in-out',
+            'rounded-full text-zinc-700 border-2 text-lg px-4 py-2 focus:outline-none transition-colors duration-300 ease-in-out',
             props.error ? 'border-red-200' : 'border-pattens-blue',
             inputClassName,
           )}

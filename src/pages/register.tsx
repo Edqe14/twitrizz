@@ -2,10 +2,16 @@ import Button from '@/components/Button';
 import Head from '@/components/Head';
 import Input from '@/components/Input';
 import Logo from '@/components/Logo';
+import fetcher from '@/lib/helpers/axios';
+import unauthOnlyGetServerProps from '@/lib/helpers/unauthOnlyGetServerProps';
 import { useForm } from '@mantine/form';
+import { AxiosError } from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 
 export default function Login() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       username: '',
@@ -13,9 +19,12 @@ export default function Login() {
       password: '',
       confirmPassword: '',
     },
-    validateInputOnBlur: true,
     clearInputErrorOnChange: false,
     validate: {
+      username: (value) => {
+        if (!value.length) return 'Username is required';
+        if (value.length < 3) return 'Username must be at least 3 characters';
+      },
       email: (value) => {
         if (!value.length) return 'E-mail is required';
         if (!value.includes('@')) return 'E-mail is invalid';
@@ -39,8 +48,25 @@ export default function Login() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form.values]);
 
-  const onSubmit = form.onSubmit((values) => {
-    // TODO: register
+  const onSubmit = form.onSubmit(async (values) => {
+    try {
+      await fetcher('/auth/register', {
+        method: 'POST',
+        data: values,
+      });
+
+      router.push('/setup');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const error = err as AxiosError;
+      const data = error.response?.data as
+        | { errors: { [key: string]: string } }
+        | undefined;
+
+      if (data?.errors) {
+        form.setErrors(data.errors);
+      }
+    }
   });
 
   return (
@@ -82,12 +108,21 @@ export default function Login() {
               type="password"
             />
 
-            <Button type="submit" className="w-full">
+            <Button type="submit" className="w-full mb-4">
               Register
             </Button>
+
+            <p className="text-blue-bayoux">
+              Already have an account?{' '}
+              <Link className="text-dodger-blue-600" href="/login">
+                Login
+              </Link>
+            </p>
           </form>
         </section>
       </main>
     </>
   );
 }
+
+export const getServerSideProps = unauthOnlyGetServerProps();

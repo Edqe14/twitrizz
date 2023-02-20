@@ -1,11 +1,15 @@
 import Head from '@/components/Head';
+import MainLayout from '@/components/layout/Main';
+import protectedGetServerProps from '@/lib/helpers/protectedGetServerProps';
 
 export default function Home() {
   return (
     <>
       <Head />
 
-      <h1 className="text-7xl">hi</h1>
+      <MainLayout></MainLayout>
     </>
   );
 }
+
+export const getServerSideProps = protectedGetServerProps();

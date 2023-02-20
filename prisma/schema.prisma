@@ -15,6 +15,7 @@ model User {
   username String @unique
   email String @unique
   password String
+  image String?
   bio String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

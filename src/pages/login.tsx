@@ -2,15 +2,20 @@ import Button from '@/components/Button';
 import Head from '@/components/Head';
 import Input from '@/components/Input';
 import Logo from '@/components/Logo';
+import fetcher from '@/lib/helpers/axios';
+import unauthOnlyGetServerProps from '@/lib/helpers/unauthOnlyGetServerProps';
 import { useForm } from '@mantine/form';
+import { AxiosError } from 'axios';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 export default function Login() {
+  const router = useRouter();
   const form = useForm({
     initialValues: {
       email: '',
       password: '',
     },
-    validateInputOnBlur: true,
     validate: {
       email: (value) => {
         if (!value.length) return 'E-mail is required';
@@ -22,8 +27,25 @@ export default function Login() {
     },
   });
 
-  const onSubmit = form.onSubmit((values) => {
-    // TODO: login
+  const onSubmit = form.onSubmit(async (values) => {
+    try {
+      await fetcher('/auth/login', {
+        method: 'POST',
+        data: values,
+      });
+
+      router.push('/');
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      const error = err as AxiosError;
+      const data = error.response?.data as
+        | { errors: { [key: string]: string } }
+        | undefined;
+
+      if (data?.errors) {
+        form.setErrors(data.errors);
+      }
+    }
   });
 
   return (
@@ -50,12 +72,21 @@ export default function Login() {
               type="password"
             />
 
-            <Button type="submit" className="w-full block">
+            <Button type="submit" className="w-full block mb-4">
               Login
             </Button>
+
+            <p className="text-blue-bayoux">
+              Don&apos;t have an account?{' '}
+              <Link className="text-dodger-blue-600" href="/register">
+                Register
+              </Link>
+            </p>
           </form>
         </section>
       </main>
     </>
   );
 }
+
+export const getServerSideProps = unauthOnlyGetServerProps();
