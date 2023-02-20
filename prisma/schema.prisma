@@ -1,0 +1,61 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id String @id @default(uuid())
+  username String @unique
+  email String @unique
+  password String
+  bio String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tweets Tweet[]
+}
+
+model Tweet {
+  id String @id @default(uuid())
+  text String @db.VarChar(250)
+  mediaUrl String?
+  authorId String
+  replyToId String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User @relation(fields: [authorId], references: [id])
+  replyTo Tweet? @relation("TweetToTweet", fields: [replyToId], references: [id])
+  replies Tweet[] @relation("TweetToTweet")
+
+  tagged HashtaggedTweet[]
+  hashtags Hashtag[]
+}
+
+model Hashtag {
+  id String @id @default(uuid())
+  name String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tweets Tweet[]
+  tagged HashtaggedTweet[]
+}
+
+model HashtaggedTweet {
+  id String @id @default(uuid())
+  tweetId String
+  hashtagId String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  tweet Tweet @relation(fields: [tweetId], references: [id])
+  hashtag Hashtag @relation(fields: [hashtagId], references: [id])
+}
