@@ -4,7 +4,7 @@ interface Props {
   title?: string;
 }
 
-export default function Head({ title = 'Home' }: Props) {
+export default function Head({ title = 'Home - Twitrizz' }: Props) {
   return (
     <NextHead>
       <title>{title}</title>

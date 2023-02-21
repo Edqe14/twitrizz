@@ -50,7 +50,11 @@ export default function TweetPage({ id }: Props) {
   return (
     <>
       <Head
-        title={tweet ? `${tweet.author.username}'s tweet` : 'Loading tweet'}
+        title={
+          tweet
+            ? `${tweet.author.username}'s tweet - Twitrizz`
+            : 'Loading... - Twitrizz'
+        }
       />
 
       <MainLayout className="overflow-hidden relative flex flex-col group">

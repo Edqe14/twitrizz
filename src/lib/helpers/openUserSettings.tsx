@@ -5,7 +5,6 @@ import { useForm } from '@mantine/form';
 import { closeModal, openModal } from '@mantine/modals';
 import { ChangeEvent, useMemo, useState } from 'react';
 import { showNotification } from '@mantine/notifications';
-import CustomInput from '@/components/Input';
 import Button from '@/components/Button';
 import useUser from '@/hooks/useUser';
 import { Plus } from 'phosphor-react';

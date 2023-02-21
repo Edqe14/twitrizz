@@ -40,8 +40,10 @@ export default function NavLinks() {
             />
             <h2
               className={classNames(
-                'text-xl  font-semibold tracking-tighter',
-                router.pathname === href ? 'text-blue-bayoux' : 'text-casper',
+                'text-xl transition-colors ease-in-out duration-150 font-semibold tracking-tighter',
+                router.pathname === href
+                  ? 'text-blue-bayoux'
+                  : 'text-casper hover:text-blue-bayoux',
               )}
             >
               {label}

@@ -52,7 +52,7 @@ export default function Login() {
 
   return (
     <>
-      <Head title="Login" />
+      <Head title="Login - Twitrizz" />
 
       <main className="w-screen h-screen">
         <section className="w-1/2 mx-auto h-full flex flex-col items-center py-52">

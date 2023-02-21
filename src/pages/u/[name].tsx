@@ -45,7 +45,7 @@ export default function Profile({ user }: Props) {
 
   return (
     <>
-      <Head title={`${user.username}'s profile`} />
+      <Head title={`${user.username}'s profile - Twitrizz`} />
 
       <MainLayout className="overflow-hidden flex flex-col group">
         <section className="p-5 bg-white border-b">

@@ -4,7 +4,7 @@ import TweetRenderer from '@/components/Tweet';
 import MainLayout from '@/components/layout/Main';
 import { LoadingOverlay } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { ArrowLeft } from 'phosphor-react';
+import { ArrowLeft, MagnifyingGlass } from 'phosphor-react';
 import useSWR from 'swr';
 
 export default function Search() {
@@ -32,7 +32,7 @@ export default function Search() {
         }
       />
 
-      <MainLayout>
+      <MainLayout className="flex flex-col overflow-hidden group">
         <section className="p-5 bg-white border-b">
           <h2 className="text-2xl font-bold flex items-center gap-4 text-blue-bayoux-700">
             <ArrowLeft
@@ -40,22 +40,34 @@ export default function Search() {
               weight="bold"
               className="cursor-pointer"
             />
-            Search Results {tweets && `(${tweets.length})`}
+
+            {!query
+              ? 'Search Tweets'
+              : `Search Results ${tweets?.length ? `(${tweets?.length})` : ''}`}
           </h2>
         </section>
 
-        <section className="relative flex-grow overflow-auto divide-y">
-          <LoadingOverlay visible={isLoading} />
+        {!!tweets?.length && (
+          <section className="relative flex-grow group-hover:overflow-y-auto divide-y">
+            <LoadingOverlay visible={isLoading} />
 
-          {tweets &&
-            tweets.map((tw) => (
-              <TweetRenderer {...tw} key={tw.id} mutate={mutate} />
-            ))}
+            {tweets &&
+              tweets.map((tw) => (
+                <TweetRenderer {...tw} key={tw.id} mutate={mutate} />
+              ))}
 
-          <section className="flex justify-center items-center py-4 opacity-25">
-            •
+            <section className="flex justify-center items-center py-4 opacity-25">
+              •
+            </section>
           </section>
-        </section>
+        )}
+
+        {!query && (
+          <section className="flex flex-col justify-center items-center flex-grow text-blue-bayoux-500 gap-4 opacity-25">
+            <MagnifyingGlass size={128} className="animate-bounce" />
+            <h2 className="font-semibold text-2xl">Search Twitrizz</h2>
+          </section>
+        )}
       </MainLayout>
     </>
   );
