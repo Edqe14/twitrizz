@@ -14,7 +14,7 @@ const uploadHandler = new IncomingForm({
 });
 
 const updateValidator = z.object({
-  bio: z.string().optional(),
+  bio: z.string().max(250).optional(),
 });
 
 export const config = {

@@ -7,7 +7,7 @@ import { closeModal, openModal } from '@mantine/modals';
 import { showNotification } from '@mantine/notifications';
 import { pickBy } from 'lodash-es';
 import { Paperclip, X } from 'phosphor-react';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import Button from '@/components/Button';
 import TweetMediaPreview from '@/components/TweetMediaPreview';
 import { useAsync } from 'react-use';
@@ -53,6 +53,7 @@ const ComposeTweetContent = (props: Props) => {
   const fetchTweets = useTweets(({ fetchTweets }) => fetchTweets);
   const [sending, setSending] = useState(false);
   const disabled = (!form.values.text && !form.values.media) || sending;
+  const fileRef = useRef<HTMLInputElement>(null);
   const submit = form.onSubmit(async (values) => {
     if (!values.media && !values.text) return;
 
@@ -93,10 +94,10 @@ const ComposeTweetContent = (props: Props) => {
   return (
     <section>
       {props.replyToId && (
-        <p className="-mt-4 text-sm mb-3 text-zinc-400">
+        <p className="-mt-4 mb-3 text-sm text-blue-bayoux-300 my-1">
           Replying to{' '}
-          <span className="text-blue-bayoux-400">
-            @{replyingTo.value?.tweet.author.username}
+          <span className="text-dodger-blue-600">
+            @{replyingTo?.value?.tweet?.author?.username}
           </span>
         </p>
       )}
@@ -111,6 +112,7 @@ const ComposeTweetContent = (props: Props) => {
         ></Textarea>
 
         <input
+          ref={fileRef}
           type="file"
           onChange={(e) =>
             form.setFieldValue('media', e?.target?.files?.[0] ?? null)
@@ -124,7 +126,10 @@ const ComposeTweetContent = (props: Props) => {
           <section className="mb-4 relative inline-block">
             <span
               className="absolute top-4 right-4 cursor-pointer z-10 mix-blend-difference"
-              onClick={() => form.setFieldValue('media', null)}
+              onClick={() => {
+                form.setFieldValue('media', null);
+                if (fileRef.current) fileRef.current.value = '';
+              }}
             >
               <X className="text-white" weight="bold" size={24} />
             </span>

@@ -3,6 +3,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -37,7 +38,6 @@ model Tweet {
   replies Tweet[] @relation("TweetToTweet") 
 
   tagged HashtaggedTweet[]
-  hashtags Hashtag[]
 }
 
 model Hashtag {
@@ -46,7 +46,6 @@ model Hashtag {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  tweets Tweet[]
   tagged HashtaggedTweet[]
 }
 

@@ -42,4 +42,11 @@ declare global {
   };
 
   type TweetPreviews = TweetPreview[];
+  type UserPreview = {
+    id: string;
+    username: string;
+    image: string | null;
+    bio: string | null;
+    createdAt: Date;
+  };
 }

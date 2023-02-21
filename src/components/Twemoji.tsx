@@ -35,7 +35,7 @@ DetailedHTMLProps<HTMLAttributes<HTMLParagraphElement>,HTMLParagraphElement>) {
     <p {...props}>
       {rendered.map((value, i) =>
         typeof value === 'string' ? (
-          <span key={i} className="break-words whitespace-pre-line">
+          <span key={i} className="break-all whitespace-pre-line">
             {value}
           </span>
         ) : (

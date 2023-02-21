@@ -1,9 +1,11 @@
 /* eslint-disable @next/next/no-img-element */
 import { ReactNode } from 'react';
 // import useUser from '@/hooks/useUser';
+import Link from 'next/link';
 import Logo from '../Logo';
 import UserBubble from '../UserBubble';
 import NavLinks from '../NavLinks';
+import SearchInput from '../SearchInput';
 
 export default function MainLayout({
   children,
@@ -12,12 +14,13 @@ export default function MainLayout({
   children?: ReactNode;
   className?: string;
 }) {
-  // const { user } = useUser();
   return (
-    <main className="grid grid-cols-[1fr_minmax(32rem,_1fr)_1fr] w-screen h-screen">
+    <main className="grid grid-cols-[1fr_minmax(35rem,_1fr)_1fr] w-screen h-screen">
       <section className="p-10 flex flex-col items-end justify-between border-r">
         <section className="flex flex-col gap-24 items-end">
-          <Logo />
+          <Link href="/">
+            <Logo />
+          </Link>
 
           <NavLinks />
         </section>
@@ -27,7 +30,9 @@ export default function MainLayout({
 
       <section className={className}>{children}</section>
 
-      <section className="border-l"></section>
+      <section className="border-l p-6">
+        <SearchInput />
+      </section>
     </main>
   );
 }

@@ -1,7 +1,7 @@
 /**
  * Tokenize hashtags from a string
  */
-export default function tokenizeHashtags(text?: string) {
+export default function tokenizeHashtags(text?: string | null) {
   if (!text) return [];
 
   const tokens = text

@@ -20,7 +20,6 @@ export const config = {
   },
 };
 
-// TODO: update & delete tweet
 export default apiHandler(['verifyJwt'])
   .get(async (req, res) => {
     const id = req.query.id as string;

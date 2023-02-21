@@ -18,6 +18,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ArrowLeft, DotsThree, Pencil, Trash } from 'phosphor-react';
 import { useMemo } from 'react';
+import { useAsync } from 'react-use';
 import useSWR from 'swr';
 
 interface Props {
@@ -38,13 +39,21 @@ export default function TweetPage({ id }: Props) {
     [tweet],
   );
 
+  const replyTo = useAsync(async () => {
+    if (!tweet || !tweet.replyToId) return;
+
+    return fetcher
+      .get<{ tweet: TweetPreview }>(`/tweet/${tweet.replyToId}`)
+      .then((res) => res.data);
+  }, [tweet?.replyToId]);
+
   return (
     <>
       <Head
         title={tweet ? `${tweet.author.username}'s tweet` : 'Loading tweet'}
       />
 
-      <MainLayout className="overflow-hidden relative flex flex-col">
+      <MainLayout className="overflow-hidden relative flex flex-col group">
         <LoadingOverlay visible={isLoading} />
 
         {tweet && date && (
@@ -61,9 +70,12 @@ export default function TweetPage({ id }: Props) {
               </h2>
             </section>
 
-            <section className="overflow-y-auto">
-              <section className="flex p-5 gap-4 justify-between items-center">
-                <section className="flex gap-4 items-center">
+            <section className="group-hover:overflow-y-auto">
+              <section className="flex p-5 pb-2 gap-4 justify-between items-center">
+                <Link
+                  href={`/u/${tweet.author.username}`}
+                  className="flex gap-4 items-center"
+                >
                   <img
                     src={tweet.author.image ?? USER_IMAGE_PLACEHOLDER}
                     alt=""
@@ -73,7 +85,7 @@ export default function TweetPage({ id }: Props) {
                   <h3 className="font-semibold text-lg text-blue-bayoux-700">
                     {tweet.author.username}
                   </h3>
-                </section>
+                </Link>
 
                 {user?.id === tweet.author.id && (
                   <Menu position="bottom-end" width={150}>
@@ -132,12 +144,21 @@ export default function TweetPage({ id }: Props) {
               </section>
 
               <section className="px-5 pb-5 border-b">
+                {tweet.replyToId && replyTo.value && (
+                  <p className="text-sm text-blue-bayoux-300 my-1">
+                    Replying to{' '}
+                    <span className="text-dodger-blue-600">
+                      @{replyTo.value.tweet.author.username}
+                    </span>
+                  </p>
+                )}
+
                 <Twemoji className="font-poppins text-lg text-zinc-800 mb-1 flex gap-2 items-center">
                   {tokens.map((t) =>
                     t.startsWith('#') ? (
                       <Link
                         className="text-dodger-blue-600"
-                        href={`/search?q=${t}`}
+                        href={`/search?q=${encodeURIComponent(t)}`}
                         key={t}
                       >
                         {t}
@@ -170,10 +191,16 @@ export default function TweetPage({ id }: Props) {
               </section>
 
               {/* Comment renderer */}
-              <section>
-                {tweet.replies.map((reply) => (
-                  <TweetRenderer key={reply.id} {...reply} mutate={mutate} />
+              <section className="relative divide-y">
+                <LoadingOverlay visible={isLoading} />
+
+                {tweet.replies.map((tw) => (
+                  <TweetRenderer {...tw} key={tw.id} mutate={mutate} />
                 ))}
+
+                <section className="flex justify-center items-center py-4 opacity-25">
+                  •
+                </section>
               </section>
             </section>
           </>

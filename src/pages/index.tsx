@@ -18,19 +18,23 @@ export default function Home() {
     <>
       <Head />
 
-      <MainLayout className="relative flex flex-col overflow-hidden">
+      <MainLayout className="relative flex flex-col overflow-hidden group">
         <section className="p-5 bg-white border-b">
           <h2 className="text-2xl font-bold text-blue-bayoux-700">
             Recent Tweets
           </h2>
         </section>
 
-        <section className="relative flex-grow overflow-auto divide-y">
+        <section className="relative flex-grow group-hover:overflow-y-auto divide-y">
           <LoadingOverlay visible={loading} />
 
           {all.map((tw) => (
             <TweetRenderer {...tw} key={tw.id} mutate={fetchTweets} />
           ))}
+
+          <section className="flex justify-center items-center py-4 opacity-25">
+            •
+          </section>
         </section>
       </MainLayout>
     </>

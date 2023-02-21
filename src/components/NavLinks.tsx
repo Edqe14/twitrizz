@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { House, User } from 'phosphor-react';
 import openComposeTweet from '@/lib/helpers/openComposeTweet';
+import useUser from '@/hooks/useUser';
 import Button from './Button';
 
 const LINKS = [
@@ -13,19 +14,25 @@ const LINKS = [
   },
   {
     label: 'Profile',
-    href: '/profile',
+    href: '/u/[name]',
     icon: User,
   },
 ];
 
 export default function NavLinks() {
   const router = useRouter();
+  // eslint-disable-next-line no-shadow
+  const user = useUser(({ user }) => user);
 
   return (
     <section className="flex flex-col gap-12 px-6">
       <section className="flex flex-col gap-4">
         {LINKS.map(({ label, href, icon: Icon }) => (
-          <Link key={label} href={href} className="flex items-center gap-4">
+          <Link
+            key={label}
+            href={href.replace(/\[name\]/g, user?.username ?? '')}
+            className="flex items-center gap-4"
+          >
             <Icon
               className="text-dodger-blue"
               weight={router.pathname === href ? 'fill' : 'regular'}

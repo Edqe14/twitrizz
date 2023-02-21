@@ -4,6 +4,7 @@
  */
 export default function loadImage(src: string | File) {
   const img = new Image();
+  img.crossOrigin = 'anonymous';
 
   return new Promise<HTMLImageElement>((resolve, reject) => {
     img.onload = () => resolve(img);

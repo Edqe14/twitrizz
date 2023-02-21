@@ -12,6 +12,7 @@ import openComposeTweet from '@/lib/helpers/openComposeTweet';
 import { showNotification } from '@mantine/notifications';
 import router from 'next/router';
 import tokenizeHashtags from '@/lib/helpers/tokenizeHashtags';
+import { useAsync } from 'react-use';
 import TweetMediaPreview from './TweetMediaPreview';
 import Twemoji from './Twemoji';
 
@@ -31,9 +32,17 @@ export default function TweetRenderer(props: Props) {
   const user = useUser(({ user }) => user);
   const tokens = tokenizeHashtags(props.text);
 
+  const replyTo = useAsync(async () => {
+    if (!props.replyToId) return;
+
+    return fetcher
+      .get<{ tweet: TweetPreview }>(`/tweet/${props.replyToId}`)
+      .then((res) => res.data);
+  }, [props.replyToId]);
+
   return (
     <section className="flex p-5 gap-4">
-      <Link href={`/u/@${props.author.username}`} className="flex-shrink-0">
+      <Link href={`/u/${props.author.username}`} className="flex-shrink-0">
         <img
           src={props.author.image ?? USER_IMAGE_PLACEHOLDER}
           alt=""
@@ -43,7 +52,7 @@ export default function TweetRenderer(props: Props) {
 
       <Link href={`/tweet/${props.id}`} className="flex-grow">
         <section className="flex items-center gap-2">
-          <Link href={`/u/@${props.author.username}`}>
+          <Link href={`/u/${props.author.username}`}>
             <h3 className="font-semibold text-base text-blue-bayoux-700">
               {props.author.username}
             </h3>
@@ -58,12 +67,21 @@ export default function TweetRenderer(props: Props) {
           </span>
         </section>
 
+        {props.replyToId && replyTo.value && (
+          <p className="text-sm text-blue-bayoux-300 my-1">
+            Replying to{' '}
+            <span className="text-dodger-blue-600">
+              @{replyTo.value.tweet.author.username}
+            </span>
+          </p>
+        )}
+
         <Twemoji className="font-poppins text-lg text-zinc-800 mb-1 flex gap-2 items-center">
           {tokens.map((t) =>
             t.startsWith('#') ? (
               <Link
                 className="text-dodger-blue-600"
-                href={`/search?q=${t}`}
+                href={`/search?q=${encodeURIComponent(t)}`}
                 key={t}
               >
                 {t}
