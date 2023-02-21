@@ -35,7 +35,11 @@ export default function UserBubble() {
         </Menu.Target>
 
         <Menu.Dropdown className="translate-x-4">
-          <Menu.Item color="blue" icon={<Pencil />} onClick={openUserSettings}>
+          <Menu.Item
+            color="blue"
+            icon={<Pencil />}
+            onClick={() => openUserSettings()}
+          >
             Edit Profile
           </Menu.Item>
 
