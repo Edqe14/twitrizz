@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PrismaClient, User } from '@prisma/client';
+import { PrismaClient, Tweet, User } from '@prisma/client';
+import { FirebaseApp } from 'firebase/app';
 import { JwtPayload } from 'jsonwebtoken';
 import {
   GetServerSidePropsContext,
@@ -11,6 +12,8 @@ import { ParsedUrlQuery } from 'querystring';
 declare global {
   // eslint-disable-next-line vars-on-top, no-var
   var prisma: PrismaClient | undefined;
+  // eslint-disable-next-line vars-on-top, no-var
+  var firebase: FirebaseApp | undefined;
 
   // eslint-disable-next-line prettier/prettier
   type JwtUser = Pick<User, 'id' | 'username' | 'email' | 'createdAt' | 'updatedAt'>;
@@ -26,4 +29,17 @@ declare global {
   > = (
     context: GetServerSidePropsContext<Q> & { user: JwtUser },
   ) => Promise<GetServerSidePropsResult<P>>;
+
+  type TweetPreview = Tweet & {
+    _count: {
+      replies: number;
+    };
+    author: {
+      id: string;
+      username: string;
+      image: string | null;
+    };
+  };
+
+  type TweetPreviews = TweetPreview[];
 }

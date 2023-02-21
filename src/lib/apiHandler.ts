@@ -1,6 +1,7 @@
 import { NextApiResponse } from 'next';
 import nc, { Middleware } from 'next-connect';
 import middlewares from './middlewares';
+import useSuperjson from './helpers/useSuperjson';
 
 /**
  * Create new api handler with middlewares
@@ -25,6 +26,9 @@ export default function apiHandler(
     onNoMatch(req, res) {
       res.status(405).json({ message: `Method ${req.method} Not Allowed` });
     },
+  }).use((_, res, next) => {
+    useSuperjson(res);
+    next();
   });
 
   useMiddlewares.forEach((m) => {

@@ -1,38 +1,35 @@
 import fetcher from '@/lib/helpers/axios';
-import { User } from '@prisma/client';
 import { create } from 'zustand';
 import { combine } from 'zustand/middleware';
 
-const useUser = create(
+const useTweets = create(
   combine(
     {
-      loading: true,
+      loading: false,
       error: false,
-      user: null as User | null,
+      tweets: [] as TweetPreviews,
     },
     (set) => ({
-      fetchUser: async () => {
+      fetchTweets: async () => {
         set({
           loading: true,
           error: false,
         });
 
         try {
-          const res = await fetcher<{ user: User }>('/user/@me');
+          const res = await fetcher<{ tweets: TweetPreviews }>('/tweet');
 
           set({
             loading: false,
             error: false,
-            user: res.data.user,
+            tweets: res.data.tweets,
           });
         } catch {
-          set({ loading: false, error: true, user: null });
+          set({ loading: false, error: true, tweets: [] });
         }
       },
     }),
   ),
 );
 
-useUser.getState().fetchUser();
-
-export default useUser;
+export default useTweets;

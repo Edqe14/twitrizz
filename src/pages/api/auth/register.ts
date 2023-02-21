@@ -12,6 +12,9 @@ const validator = z.object({
     .string({
       required_error: 'Username is required',
     })
+    .regex(/^[a-zA-Z0-9_]+$/, {
+      message: 'Username can only contain letters, numbers and underscores',
+    })
     .min(3, {
       message: 'Username must be at least 3 characters long',
     }),

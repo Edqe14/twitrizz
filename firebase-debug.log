@@ -1,0 +1,59 @@
+[debug] [2023-02-21T01:00:08.871Z] ----------------------------------------------------------------------
+[debug] [2023-02-21T01:00:08.873Z] Command:       /home/edqe/.nvm/versions/node/v16.16.0/bin/node /home/edqe/.yarn/bin/firebase emulators:start --project experiment
+[debug] [2023-02-21T01:00:08.873Z] CLI Version:   11.20.0
+[debug] [2023-02-21T01:00:08.873Z] Platform:      linux
+[debug] [2023-02-21T01:00:08.873Z] Node Version:  v16.16.0
+[debug] [2023-02-21T01:00:08.874Z] Time:          Tue Feb 21 2023 08:00:08 GMT+0700 (Indochina Time)
+[debug] [2023-02-21T01:00:08.874Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2023-02-21T01:00:08.944Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2023-02-21T01:00:08.944Z] > authorizing via signed-in user (configxgt@gmail.com)
+[debug] [2023-02-21T01:00:09.014Z] openjdk version "17.0.5" 2022-10-18
+OpenJDK Runtime Environment (build 17.0.5+1)
+
+[debug] [2023-02-21T01:00:09.015Z] OpenJDK 64-Bit Server VM (build 17.0.5+1, mixed mode)
+
+[debug] [2023-02-21T01:00:09.018Z] Parsed Java major version: 17
+[info] i  emulators: Starting emulators: storage {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: storage"}}
+[debug] [2023-02-21T01:00:09.025Z] [logging] Logging Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-02-21T01:00:09.025Z] [storage] Storage Emulator only supports listening on one address (127.0.0.1). Not listening on ::1
+[debug] [2023-02-21T01:00:09.026Z] assigned listening specs for emulators {"user":{"hub":[{"address":"127.0.0.1","family":"IPv4","port":4400},{"address":"::1","family":"IPv6","port":4400}],"ui":[{"address":"127.0.0.1","family":"IPv4","port":4000},{"address":"::1","family":"IPv6","port":4000}],"logging":[{"address":"127.0.0.1","family":"IPv4","port":4500}],"storage":[{"address":"127.0.0.1","family":"IPv4","port":9199}]},"metadata":{"message":"assigned listening specs for emulators"}}
+[debug] [2023-02-21T01:00:09.030Z] [hub] writing locator at /tmp/hub-experiment.json
+[debug] [2023-02-21T01:00:09.037Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"storage"},"message":"Ignoring unsupported arg: port"}}
+[warn] ⚠  Missing 'if' before conditional expression in /home/edqe/Projects/Github/twitter-clone/firebase/storage/storage.rules:5 {"metadata":{"emulator":{"name":"storage"},"message":"Missing 'if' before conditional expression in /home/edqe/Projects/Github/twitter-clone/firebase/storage/storage.rules:5"}}
+[debug] [2023-02-21T01:00:09.622Z] Temp file directory for storage emulator: /tmp/firebase/storage/blobs {"metadata":{"emulator":{"name":"storage"},"message":"Temp file directory for storage emulator: /tmp/firebase/storage/blobs"}}
+[debug] [2023-02-21T01:00:09.635Z] Ignoring unsupported arg: auto_download {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: auto_download"}}
+[debug] [2023-02-21T01:00:09.636Z] Ignoring unsupported arg: port {"metadata":{"emulator":{"name":"ui"},"message":"Ignoring unsupported arg: port"}}
+[debug] [2023-02-21T01:00:09.636Z] Starting Emulator UI with command {"binary":"node","args":["/home/edqe/.cache/firebase/emulators/ui-v1.11.2/server/server.js"],"optionalArgs":[],"joinArgs":false} {"metadata":{"emulator":{"name":"ui"},"message":"Starting Emulator UI with command {\"binary\":\"node\",\"args\":[\"/home/edqe/.cache/firebase/emulators/ui-v1.11.2/server/server.js\"],\"optionalArgs\":[],\"joinArgs\":false}"}}
+[info] i  ui: Emulator UI logging to ui-debug.log {"metadata":{"emulator":{"name":"ui"},"message":"Emulator UI logging to \u001b[1mui-debug.log\u001b[22m"}}
+[debug] [2023-02-21T01:00:09.768Z] Web / API server started at 127.0.0.1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at 127.0.0.1:4000\n"}}
+[debug] [2023-02-21T01:00:09.768Z] Web / API server started at ::1:4000
+ {"metadata":{"emulator":{"name":"ui"},"message":"Web / API server started at ::1:4000\n"}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+│ i  View Emulator UI at http://127.0.0.1:4000/               │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┬───────────────────────────────┐
+│ Emulator │ Host:Port      │ View in Emulator UI           │
+├──────────┼────────────────┼───────────────────────────────┤
+│ Storage  │ 127.0.0.1:9199 │ http://127.0.0.1:4000/storage │
+└──────────┴────────────────┴───────────────────────────────┘
+  Emulator Hub running at 127.0.0.1:4400
+  Other reserved ports: 4500
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[debug] [2023-02-21T01:00:53.697Z] > refreshing access token with scopes: []
+[debug] [2023-02-21T01:00:53.700Z] >>> [apiv2][query] POST https://www.googleapis.com/oauth2/v3/token [none]
+[debug] [2023-02-21T01:00:53.701Z] >>> [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-21T01:00:53.815Z] <<< [apiv2][status] POST https://www.googleapis.com/oauth2/v3/token 200
+[debug] [2023-02-21T01:00:53.815Z] <<< [apiv2][body] POST https://www.googleapis.com/oauth2/v3/token [omitted]
+[debug] [2023-02-21T01:00:53.829Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/experiment/adminSdkConfig [none]
+[debug] [2023-02-21T01:00:54.369Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/experiment/adminSdkConfig 403
+[debug] [2023-02-21T01:00:54.369Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/experiment/adminSdkConfig {"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}}
+[debug] [2023-02-21T01:00:54.370Z] Failed to get Admin SDK config for experiment, falling back to cache Failed to get Admin SDK for Firebase project experiment. Please make sure the project exists and your account has permission to access it. {"name":"FirebaseError","children":[],"exit":2,"message":"Failed to get Admin SDK for Firebase project experiment. Please make sure the project exists and your account has permission to access it.","original":{"name":"FirebaseError","children":[],"context":{"body":{"error":{"code":403,"message":"The caller does not have permission","status":"PERMISSION_DENIED"}},"response":{"statusCode":403}},"exit":1,"message":"HTTP Error: 403, The caller does not have permission","status":403},"status":500}
+[warn] ⚠  Permission denied because no Storage ruleset is currently loaded, check your rules for syntax errors. {"metadata":{"emulator":{"name":"storage"},"message":"Permission denied because no Storage ruleset is currently loaded, check your rules for syntax errors."}}
+[info] i  storage: Change detected, updating rules for Cloud Storage... {"metadata":{"emulator":{"name":"storage"},"message":"Change detected, updating rules for Cloud Storage..."}}

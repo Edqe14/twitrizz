@@ -15,11 +15,20 @@ interface Props extends DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>,
   label?: ReactNode;
   inputClassName?: string;
   error?: string;
+  fullWidth?: boolean;
 }
 
 const Input = forwardRef<HTMLDivElement, Props>(
   (
-    { id: propsId, labelProps, label, className, inputClassName, ...props },
+    {
+      id: propsId,
+      labelProps,
+      label,
+      className,
+      inputClassName,
+      fullWidth,
+      ...props
+    },
     ref,
   ) => {
     const id = propsId ?? nanoid(8);
@@ -28,7 +37,11 @@ const Input = forwardRef<HTMLDivElement, Props>(
     return (
       <section
         ref={ref}
-        className={classNames('flex flex-col gap-1 w-min', className)}
+        className={classNames(
+          'flex flex-col gap-1',
+          !fullWidth && 'w-min',
+          className,
+        )}
       >
         <label
           {...labelProps}

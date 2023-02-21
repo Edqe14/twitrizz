@@ -2,6 +2,7 @@ import Button from '@/components/Button';
 import Head from '@/components/Head';
 import Input from '@/components/Input';
 import Logo from '@/components/Logo';
+import useUser from '@/hooks/useUser';
 import fetcher from '@/lib/helpers/axios';
 import unauthOnlyGetServerProps from '@/lib/helpers/unauthOnlyGetServerProps';
 import { useForm } from '@mantine/form';
@@ -35,6 +36,7 @@ export default function Login() {
       });
 
       router.push('/');
+      useUser.getState().fetchUser();
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
       const error = err as AxiosError;

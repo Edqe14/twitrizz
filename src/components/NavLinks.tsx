@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { House, User } from 'phosphor-react';
+import openComposeTweet from '@/lib/helpers/openComposeTweet';
 import Button from './Button';
 
 const LINKS = [
@@ -28,11 +29,11 @@ export default function NavLinks() {
             <Icon
               className="text-dodger-blue"
               weight={router.pathname === href ? 'fill' : 'regular'}
-              size={36}
+              size={35}
             />
             <h2
               className={classNames(
-                'text-2xl  font-semibold tracking-tighter',
+                'text-xl  font-semibold tracking-tighter',
                 router.pathname === href ? 'text-blue-bayoux' : 'text-casper',
               )}
             >
@@ -42,7 +43,9 @@ export default function NavLinks() {
         ))}
       </section>
 
-      <Button className="-mx-6">Tweet</Button>
+      <Button className="-mx-6" onClick={() => openComposeTweet()}>
+        Tweet
+      </Button>
     </section>
   );
 }
