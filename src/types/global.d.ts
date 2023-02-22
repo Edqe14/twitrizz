@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { PrismaClient, Tweet, User } from '@prisma/client';
+import { Hashtag, PrismaClient, Tweet, User } from '@prisma/client';
 import { FirebaseApp } from 'firebase/app';
 import { JwtPayload } from 'jsonwebtoken';
 import {
@@ -48,5 +48,11 @@ declare global {
     image: string | null;
     bio: string | null;
     createdAt: Date;
+  };
+
+  type PopularTag = Hashtag & {
+    _count: {
+      tagged: number;
+    };
   };
 }

@@ -157,7 +157,7 @@ export default function TweetPage({ id }: Props) {
                   </p>
                 )}
 
-                <Twemoji className="font-poppins text-lg text-zinc-800 mb-1 flex gap-2 items-center">
+                <Twemoji className="font-poppins text-lg text-zinc-800 mb-1">
                   {tokens.map((t) =>
                     t.startsWith('#') ? (
                       <Link

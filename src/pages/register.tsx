@@ -9,9 +9,10 @@ import { useForm } from '@mantine/form';
 import { AxiosError } from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Login() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   const form = useForm({
     initialValues: {
@@ -53,6 +54,8 @@ export default function Login() {
 
   const onSubmit = form.onSubmit(async (values) => {
     try {
+      setLoading(true);
+
       await fetcher('/auth/register', {
         method: 'POST',
         data: values,
@@ -70,6 +73,8 @@ export default function Login() {
       if (data?.errors) {
         form.setErrors(data.errors);
       }
+    } finally {
+      setLoading(false);
     }
   });
 
@@ -112,7 +117,7 @@ export default function Login() {
               type="password"
             />
 
-            <Button type="submit" className="w-full mb-4">
+            <Button loading={loading} type="submit" className="w-full mb-4">
               Register
             </Button>
 

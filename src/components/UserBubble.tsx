@@ -38,7 +38,16 @@ export default function UserBubble() {
           <Menu.Item
             color="blue"
             icon={<Pencil />}
-            onClick={() => openUserSettings()}
+            onClick={() =>
+              openUserSettings(() => {
+                if (
+                  router.pathname === '/u/[name]' &&
+                  router.query.name === user?.username
+                ) {
+                  router.replace(router.asPath);
+                }
+              })
+            }
           >
             Edit Profile
           </Menu.Item>

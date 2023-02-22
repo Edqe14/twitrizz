@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "start:storage": "firebase emulators:start --only storage --project experiment"
+    "start:storage": "firebase emulators:start --only storage --project experiment --import .firebase-data --export-on-exit .firebase-data"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",

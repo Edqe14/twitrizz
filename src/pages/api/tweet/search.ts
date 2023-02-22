@@ -7,7 +7,9 @@ export default apiHandler(['verifyJwt']).get(async (req, res) => {
   const query = req.query.q as string;
   const user = req.query.u as string;
 
-  const tokens = tokenizeHashtags(query);
+  const tokens = tokenizeHashtags(query)
+    .map((t) => t.trim())
+    .filter(Boolean);
   const hashtags = tokens
     .filter((t) => t.startsWith('#'))
     .map((t) => t.slice(1));

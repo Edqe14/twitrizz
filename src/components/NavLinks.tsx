@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { House, User } from 'phosphor-react';
+import { House, MagnifyingGlass, User } from 'phosphor-react';
 import openComposeTweet from '@/lib/helpers/openComposeTweet';
 import useUser from '@/hooks/useUser';
 import Button from './Button';
@@ -16,6 +16,11 @@ const LINKS = [
     label: 'Profile',
     href: '/u/[name]',
     icon: User,
+  },
+  {
+    label: 'Search',
+    href: '/search',
+    icon: MagnifyingGlass,
   },
 ];
 
@@ -43,7 +48,7 @@ export default function NavLinks() {
                 'text-xl transition-colors ease-in-out duration-150 font-semibold tracking-tighter',
                 router.pathname === href
                   ? 'text-blue-bayoux'
-                  : 'text-casper hover:text-blue-bayoux',
+                  : 'text-casper hover:text-blue-bayoux-300',
               )}
             >
               {label}

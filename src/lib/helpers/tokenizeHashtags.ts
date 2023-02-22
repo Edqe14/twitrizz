@@ -6,7 +6,8 @@ export default function tokenizeHashtags(text?: string | null) {
 
   const tokens = text
     .split(/(#\w+)/)
-    .map((token) => token.trim())
+    .map((v) => v.split(/(\n)/))
+    .flat()
     .filter((token) => token !== '');
 
   return tokens;

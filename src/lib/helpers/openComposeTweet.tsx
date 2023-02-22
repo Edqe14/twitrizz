@@ -12,7 +12,9 @@ import Button from '@/components/Button';
 import TweetMediaPreview from '@/components/TweetMediaPreview';
 import { useAsync } from 'react-use';
 import classNames from 'classnames';
+import { mutate } from 'swr';
 import fetcher from './axios';
+import tokenizeHashtags from './tokenizeHashtags';
 
 type Props = (
   | {
@@ -40,6 +42,8 @@ const ComposeTweetContent = (props: Props) => {
         : (undefined as File | null | undefined),
     },
   });
+
+  const textHashtagToken = tokenizeHashtags(form.values.text);
 
   const replyingTo = useAsync(async () => {
     if (!props.replyToId) return null;
@@ -103,13 +107,33 @@ const ComposeTweetContent = (props: Props) => {
       )}
 
       <form onSubmit={submit}>
-        <Textarea
-          placeholder="What are you thinking?"
-          className="mb-4"
-          maxLength={250}
-          minRows={6}
-          {...form.getInputProps('text')}
-        ></Textarea>
+        <section className="relative mb-4 z-[initial]">
+          <p className="absolute inset-0 p-3 text-[14px] break-words overflow-auto text-zinc-700 tracking-normal leading-[1.55]">
+            {textHashtagToken.map((t) =>
+              // eslint-disable-next-line no-nested-ternary
+              t.startsWith('#') ? (
+                <span className="text-dodger-blue-600" key={t}>
+                  {t}
+                </span>
+              ) : t === '\n' ? (
+                <br />
+              ) : (
+                t
+              ),
+            )}
+          </p>
+
+          <Textarea
+            placeholder="What are you thinking?"
+            className="z-[5] bg-transparent"
+            classNames={{
+              input: 'caret-black text-transparent bg-transparent',
+            }}
+            maxLength={250}
+            minRows={6}
+            {...form.getInputProps('text')}
+          ></Textarea>
+        </section>
 
         <input
           ref={fileRef}
@@ -189,7 +213,10 @@ const openComposeTweet = ({ onClose, ...options }: Props = {}) => {
       : 'Post new tweet',
     children: <ComposeTweetContent {...options} />,
     size: 'lg',
-    onClose,
+    onClose: () => {
+      onClose?.();
+      mutate('/tag/popular');
+    },
   });
 };
 

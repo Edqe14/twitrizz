@@ -102,7 +102,7 @@ const UserSettingsContent = () => {
         label="Bio"
         className="w-full mb-12"
         maxLength={250}
-        minRows={3}
+        minRows={4}
         {...form.getInputProps('bio')}
       ></Textarea>
 

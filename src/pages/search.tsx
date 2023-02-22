@@ -4,7 +4,7 @@ import TweetRenderer from '@/components/Tweet';
 import MainLayout from '@/components/layout/Main';
 import { LoadingOverlay } from '@mantine/core';
 import { useRouter } from 'next/router';
-import { ArrowLeft, MagnifyingGlass } from 'phosphor-react';
+import { ArrowLeft, MagnifyingGlass, Warning } from 'phosphor-react';
 import useSWR from 'swr';
 
 export default function Search() {
@@ -41,9 +41,7 @@ export default function Search() {
               className="cursor-pointer"
             />
 
-            {!query
-              ? 'Search Tweets'
-              : `Search Results ${tweets?.length ? `(${tweets?.length})` : ''}`}
+            {!query ? 'Search Tweets' : `Search Results (${tweets?.length})`}
           </h2>
         </section>
 
@@ -59,6 +57,13 @@ export default function Search() {
             <section className="flex justify-center items-center py-4 opacity-25">
               •
             </section>
+          </section>
+        )}
+
+        {tweets && tweets.length === 0 && (
+          <section className="flex flex-col justify-center items-center flex-grow text-blue-bayoux-500 gap-4 opacity-25">
+            <Warning size={128} className="animate-bounce" />
+            <h2 className="font-semibold text-2xl">No result</h2>
           </section>
         )}
 

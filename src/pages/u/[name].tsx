@@ -62,8 +62,8 @@ export default function Profile({ user }: Props) {
 
         <section className="overflow-hidden group-hover:overflow-y-auto">
           <section
-            className="h-44 border-b relative"
-            style={{ background: commonColor.value ?? '#BED4DD' }}
+            className="h-44 border-b relative transition-colors duration-500 ease-expo"
+            style={{ backgroundColor: commonColor.value ?? '#BED4DD' }}
           >
             <img
               src={user.image ?? USER_IMAGE_PLACEHOLDER}
@@ -91,7 +91,7 @@ export default function Profile({ user }: Props) {
             </h3>
 
             <Twemoji className="font-poppins text-base text-zinc-800 mb-1">
-              {hashtagTokens.map((t, i, a) =>
+              {hashtagTokens.map((t) =>
                 t.startsWith('#') ? (
                   <Link
                     className="text-dodger-blue-600 inline"
@@ -101,7 +101,7 @@ export default function Profile({ user }: Props) {
                     {t}
                   </Link>
                 ) : (
-                  `${i === a.length - 1 ? ' ' : ''}${t}${i === 0 ? ' ' : ''}`
+                  t
                 ),
               )}
             </Twemoji>

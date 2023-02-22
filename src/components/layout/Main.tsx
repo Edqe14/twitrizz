@@ -6,6 +6,7 @@ import Logo from '../Logo';
 import UserBubble from '../UserBubble';
 import NavLinks from '../NavLinks';
 import SearchInput from '../SearchInput';
+import PopularTags from '../PopularTags';
 
 export default function MainLayout({
   children,
@@ -30,8 +31,10 @@ export default function MainLayout({
 
       <section className={className}>{children}</section>
 
-      <section className="border-l p-6">
+      <section className="border-l p-6 flex flex-col gap-8">
         <SearchInput />
+
+        <PopularTags />
       </section>
     </main>
   );

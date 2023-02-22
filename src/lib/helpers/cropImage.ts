@@ -17,11 +17,15 @@ export default function cropImage(input: HTMLImageElement | File) {
         return reject(new Error('Failed to get canvas context'));
       }
 
-      const size = Math.min(img.width, img.height);
+      const size = 512;
       canvas.width = size;
       canvas.height = size;
+
+      const min = Math.min(img.width, img.height);
+      const ratio = size / min;
+
       // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-      ctx.drawImage(img, 0, 0, img.width, img.height);
+      ctx.drawImage(img, 0, 0, img.width * ratio, img.height * ratio);
       canvas.toBlob((blob) => {
         if (!blob) {
           return reject(new Error('Failed to crop image'));
